@@ -135,7 +135,7 @@
       max_dy = calc.max(max_dy, ndy + em_h / 2)
 
       // Draw the info circle
-      if o.info_pos != none {
+      if o.info-pos != none {
         let margin = 2pt
         if o.type == "arrow" {
           margin = 6pt
@@ -143,15 +143,15 @@
 
         let idx = 0
         let idy = 0
-        if o.info_pos == left { idx = -1 }
-        else if o.info_pos == right { idx = 1 }
-        else if o.info_pos == top { idy = -1 }
-        else if o.info_pos == bottom { idy = 1 }
+        if o.info-pos == left { idx = -1 }
+        else if o.info-pos == right { idx = 1 }
+        else if o.info-pos == top { idy = -1 }
+        else if o.info-pos == bottom { idy = 1 }
         else { assert(false, "o.info needs to be one of [top, right, bottom, left]") }
 
         let info_img_data = read("assets/info/1.svg")
 
-        info_img_data = info_img_data.replace(">1<", ">" + str(o.info_num) + "<")
+        info_img_data = info_img_data.replace(">1<", ">" + str(o.info-num) + "<")
 
         let info_img = image(bytes(info_img_data))
         let im = measure(info_img)
@@ -239,17 +239,17 @@
   return (content: contents, elements: elements, dims: (min_dx: min_dx, max_dx: max_dx, min_dy: min_dy, max_dy: max_dy))
 }
 
-#let element(type, variant: 1, dist: 30pt, rot: 0deg, size: 1.0, info_pos: none, info_num: -1) = {
+#let element(type, variant: 1, dist: 30pt, rot: 0deg, size: 1.0, info-pos: none, info-num: -1) = {
   let f(stroke: none) = {
     let pivot(img) = { (x: 0pt, y: 0pt) }
 
     let r = _load_svg("assets/" + type + "/" + str(variant) + ".svg", size: size)
 
-    return (obj: r, type: type, variant: variant, info_pos: info_pos, info_num: info_num, dist: dist, rot: rot, reflect: 0%, pivot: pivot)
+    return (obj: r, type: type, variant: variant, info-pos: info-pos, info-num: info-num, dist: dist, rot: rot, reflect: 0%, pivot: pivot)
   }
   return f
 }
-#let mirror(type: "mirror", variant: 1, dist: 30pt, rot: 0deg, size: 1.0, info_pos: none, info_num: -1) = {
+#let mirror(type: "mirror", variant: 1, dist: 30pt, rot: 0deg, size: 1.0, info-pos: none, info-num: -1) = {
   let f(stroke: none) = {
     let pivot(img) = {
       return (x: 0pt, y: 0pt)
@@ -263,14 +263,14 @@
         move(_rotate_around_point(img, -90deg, -measure(img).width/2, 0pt), dx: measure(img).width/2)
       }
     }
-    return (obj: r, type: type, variant: variant, info_pos: info_pos, info_num: info_num, dist: dist, rot: rot, reflect: 100%, pivot: pivot)
+    return (obj: r, type: type, variant: variant, info-pos: info-pos, info-num: info-num, dist: dist, rot: rot, reflect: 100%, pivot: pivot)
   }
 
   return f
 }
 
-#let type_fct = type
-#let splitter(path1, path2, path3: none, type: "beam_splitter_cube", variant: 1, dist: 30pt, rot: 0deg, size: 1, info_pos: none, info_num: -1) = {
+#let type-fct = type
+#let splitter(path1, path2, path3: none, type: "beam_splitter_cube", variant: 1, dist: 30pt, rot: 0deg, size: 1, info-pos: none, info-num: -1) = {
   let f(stroke: none) = {
     let pivot(img) = { (x: 0pt, y: 0pt) }
 
@@ -278,24 +278,24 @@
     let path2_ = path2
     let path3_ = path3
 
-    if type_fct(path1) != array {
+    if type-fct(path1) != array {
       path1_ = (path1,)
     }
-    if type_fct(path2) != array {
+    if type-fct(path2) != array {
       path2_ = (path2,)
     }
-    if path3 != none and type_fct(path3) != array {
+    if path3 != none and type-fct(path3) != array {
       path3_ = (path3,)
     }
 
     let r = _load_svg("assets/" + type + "/" + str(variant) + ".svg", size: size)
 
-    return (obj: r, type: type, variant: variant, info_pos: info_pos, info_num: info_num, dist: dist, rot: rot, reflect: 0%, pivot: pivot, subcomponents: (path1_, path2_, path3_))
+    return (obj: r, type: type, variant: variant, info-pos: info-pos, info-num: info-num, dist: dist, rot: rot, reflect: 0%, pivot: pivot, subcomponents: (path1_, path2_, path3_))
   }
   return f
 }
 
-#let arrow(dist: 30pt, size: none, dir: 1, info_pos: none, info_num: -1) = {
+#let arrow(dist: 30pt, size: none, dir: 1, info-pos: none, info-num: -1) = {
   let f(stroke: none) = {
     let pivot(img) = { (x: 0pt, y: 0pt) }
 
@@ -309,13 +309,13 @@
       place(line(start: (0pt, 0pt), end: (-dir*size_, size_), stroke: stroke))
     }
 
-    return (obj: r, type: "arrow", variant: 1, info_pos: info_pos, info_num: info_num, dist: dist, rot: 0deg, reflect: 0%, pivot: pivot)
+    return (obj: r, type: "arrow", variant: 1, info-pos: info-pos, info-num: info-num, dist: dist, rot: 0deg, reflect: 0%, pivot: pivot)
   }
 
   return f
 }
 
-#let combine_assemblies(..assemblies) = {
+#let combine-assemblies(..assemblies) = {
   let elements = (:)
 
   let min_dx = 0pt
@@ -359,11 +359,11 @@
 #let legend(components,
         labels: (),
         alt-text: (),
-        pic_scale: 0.7,
-        pic_text_size: 10pt,
-        info_text_size: 11pt,
-        pic_padding: 0.5em,
-        info_padding: 0.7em) = {
+        pic-scale: 0.7,
+        pic-text-size: 10pt,
+        info-text-size: 11pt,
+        pic-padding: 0.5em,
+        info-padding: 0.7em) = {
   let str-fmt(s, alt-text) = {
     let c = s.at(0).to-unicode()
     if c >= 97 and c <= 122 {
@@ -398,11 +398,11 @@
           let v = components.at(k)
           let img_content = {
             for i in v {
-              let img = box(_load_svg("assets/" + k + "/" + str(i) + ".svg", size: pic_scale))
+              let img = box(_load_svg("assets/" + k + "/" + str(i) + ".svg", size: pic-scale))
               img + h(pic_text_margin)
             }
           }
-          let t = box(text(str-fmt(k, alt-text), font: "Linux Biolinum", size: pic_text_size))
+          let t = box(text(str-fmt(k, alt-text), font: "Linux Biolinum", size: pic-text-size))
           box(box(img_content) + box(t, inset: (y: measure(img_content).height/2 - measure(t).height/2)))
           h(10pt)
         }
@@ -412,21 +412,21 @@
     let info_content = {
       let i = 1
       for info_text in labels {
-        box(str(i) + ": " + text(info_text, size: info_text_size) + h(10pt))
+        box(str(i) + ": " + text(info_text, size: info-text-size) + h(10pt))
         i += 1
       }
     }
 
     let c = rect(
-      rect(content + v(pic_padding),
+      rect(content + v(pic-padding),
         stroke: (bottom: 0.0pt),
-        inset: (x: pic_padding, y: pic_padding -7pt)
+        inset: (x: pic-padding, y: pic-padding -7pt)
       )
       + v(-1.5em)
       + rect(line(length: 95%), width: 100%, stroke: 0pt)
       + v(-1.5em)
       + rect(info_content,
-          inset: (x: info_padding, y: info_padding),
+          inset: (x: info-padding, y: info-padding),
           stroke: 0.0pt)
       + v(-0.5em),
       inset: (x: 0pt, y: 0.5em),

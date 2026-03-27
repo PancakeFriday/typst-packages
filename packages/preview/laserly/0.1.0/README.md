@@ -103,7 +103,7 @@ Its return value is used to render the assembly.
 
 ---
 
-### `combine_assemblies`
+### `combine-assemblies`
 **Required Parameters:**
 - `assemblies` [vararg of all assemblies]
 
@@ -113,13 +113,13 @@ Its return value is used to render the assembly.
 This function creates a legend box.
 
 **Optional Parameters:**
-- `labels` [array, default: `()`]: Text for each label. Array position matches `label_num-1` (e.g., if an element has `label_num: 4`, then `labels[3]` will be its text).
+- `labels` [array, default: `()`]: Text for each label. Array position matches `label-num - 1` (e.g., if an element has `label-num: 4`, then `labels[3]` will be its text).
 - `alt-text` [array of tuples, default: `()`]: Alternative text for the elements. For example, an element can be `("Beamsplitter", "PBS")`, renaming all "Beamsplitter" elements to "PBS".
-- `pic_scale` [float, default: `0.7`]: Size of the elements in the legend
-- `pic_text_size` [font size, default: `10pt`]: Size of the element name
-- `info_text_size` [font size, default: `11pt`]: Size of the info text
-- `pic_padding` [size, default: `0.5em`]: Distance between element text and picture
-- `info_padding` [size, default: `0.7em`]: Distance to the info text
+- `pic-scale` [float, default: `0.7`]: Size of the elements in the legend
+- `pic-text-size` [font size, default: `10pt`]: Size of the element name
+- `info-text-size` [font size, default: `11pt`]: Size of the info text
+- `pic-padding` [size, default: `0.5em`]: Distance between element text and picture
+- `info-padding` [size, default: `0.7em`]: Distance to the info text
 
 **Required Parameters:**
 - `components`: Use `objs.elements` (the return from `assemble`)
@@ -136,8 +136,8 @@ A general optical element.
 - `dist` [size, default: `30pt`]: Distance to previous object
 - `rot` [degrees, default: `0deg`]: Rotation of element
 - `size` [float, default: `1.0`]: Size of the element
-- `info_pos` [position (`none`   `top` | `right` | `bottom` | `left`), default: `none`]: Position of the info number (e.g., for labeling an element)
-- `info_num` [integer, default: `-1`]: Number of the info (should be referenced in the legend)
+- `info-pos` [position (`none`   `top` | `right` | `bottom` | `left`), default: `none`]: Position of the info number (e.g., for labeling an element)
+- `info-num` [integer, default: `-1`]: Number of the info (should be referenced in the legend)
 
 **Required Parameters:**
 - `type` [string]: A name referring to the element. Check the available names in the assets folder.
@@ -171,4 +171,4 @@ An optical element that can split a beam into two paths. The third path is used,
 Adds an arrow into the laser path.
 
 **Optional Parameters:**
-- `dist`, `size`, `info_pos`, `info_num`: See `element`
+- `dist`, `size`, `info-pos`, `info-num`: See `element`
