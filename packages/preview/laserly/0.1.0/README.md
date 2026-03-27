@@ -7,7 +7,7 @@ General usage
 ---
 
 ```
-#import "@local/laserly:0.1.0": assemble, element
+#import "@preview/laserly:0.1.0": assemble, element
 
 #context {
   let objs = assemble((
