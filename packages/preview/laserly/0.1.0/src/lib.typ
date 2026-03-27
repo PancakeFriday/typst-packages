@@ -77,7 +77,7 @@
   }
   return arr
 }
-#let assemble(rot: 0deg, _is_sub: false, stroke: 1pt+black, objs) = {
+#let assemble(rot: 0deg, stroke: 1pt+black, objs) = {
   if type(objs) != array {
     objs = (objs,)
   }
